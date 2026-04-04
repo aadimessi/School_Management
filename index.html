@@ -269,11 +269,15 @@
             return;
         }
 
-        const resultDocRef = doc(db, "quizResults", studentName);
+
+        const activeDoc = await getDoc(doc(db, "activeExam", "current"));
+        const activeExamId = String(activeDoc.data().examId).trim();
+
+        const resultDocRef = doc(db, "quizResults", studentName + "_" + activeExamId);
         const resultDoc = await getDoc(resultDocRef);
 
         if (resultDoc.exists()) {
-            alert("✅ You have already completed the quiz! Your score is saved.");
+            alert("✅ You have already completed THIS exam!");
             return;
         }
 
@@ -442,7 +446,10 @@ async function submitQuiz() {
     score=score*2;
     length = questions.length*2;
     try {
-        await setDoc(doc(db, "quizResults", studentName), {
+        const activeDoc = await getDoc(doc(db, "activeExam", "current"));
+        const activeExamId = String(activeDoc.data().examId).trim();
+
+        await setDoc(doc(db, "quizResults", studentName + "_" + activeExamId), {
             name: studentName,
             score: score,
             totalMarks: length,

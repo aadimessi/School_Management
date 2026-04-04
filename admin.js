@@ -29,6 +29,9 @@ async function addQuestion() {
     const correctAnswer = options[correctAnswerIndex]; // Store correct answer as text
     const saveButton = document.getElementById("saveQuestionBtn");
 
+    // 🔥 NEW LINE: Get selected exam
+    const examId = document.getElementById("examSelect").value;
+
     if (!questionText || options.includes("")) {
         alert("⚠️ Please fill in all fields!");
         return;
@@ -40,7 +43,8 @@ async function addQuestion() {
         await addDoc(collection(db, "quizQuestions"), {
             question: questionText,
             options: options,
-            correctAnswer: correctAnswer
+            correctAnswer: correctAnswer,
+            examId: examId   // 🔥 NEW FIELD ADDED
         });
 
         alert("✅ Question added successfully!");

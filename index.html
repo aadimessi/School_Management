@@ -317,6 +317,9 @@
     } catch (error) {
         console.error("Error loading questions: ", error);
     }
+        console.log("ActiveExam Doc:", activeDoc.data());
+        console.log("Active Exam ID:", activeExamId);
+        console.log("Query Snapshot Size:", querySnapshot.size);
 }
 
 function createNavBar() {

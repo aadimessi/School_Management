@@ -1,4 +1,3 @@
-// Firebase configuration
 const firebaseConfig = {
             apiKey: "AIzaSyAdvbkZaLSJsJlaAkURHACbt2cJtemBa5U",
             authDomain: "quiz-app-e8d1d.firebaseapp.com",
@@ -9,14 +8,12 @@ const firebaseConfig = {
             measurementId: "G-MBCSZVWMZP"
 };
 
-// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
 let questions = [];
 let currentQuestionIndex = 0;
 
-// Load questions from Firestore
 function loadQuestions() {
     db.collection("questions").get().then((querySnapshot) => {
         if (querySnapshot.empty) {
@@ -38,7 +35,6 @@ function loadQuestions() {
     });
 }
 
-// Display the current question
 function displayQuestion() {
     const questionContainer = document.getElementById("question-container");
     const optionsContainer = document.getElementById("options-container");
@@ -54,7 +50,6 @@ function displayQuestion() {
         return;
     }
 
-    // Clear previous content
     questionContainer.innerHTML = currentQuestion.question || "[No question text]";
     optionsContainer.innerHTML = "";
 
@@ -67,7 +62,6 @@ function displayQuestion() {
     });
 }
 
-// Check the selected answer
 function checkAnswer(selectedOption) {
     const currentQuestion = questions[currentQuestionIndex];
     if (selectedOption === currentQuestion.correctAnswer) {
@@ -84,13 +78,8 @@ function checkAnswer(selectedOption) {
     }
 }
 
-// Start the quiz
 window.onload = () => {
     loadQuestions();
 };
-
-// HTML example structure:
-// <div id="question-container"></div>
-// <div id="options-container"></div>
 
 // Let me know if you need any adjustments! 🚀

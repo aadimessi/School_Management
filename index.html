@@ -297,7 +297,6 @@
 
     async function loadQuestions() {
     try {
-        // 🔥 STEP 1: Get active exam ID
         const activeDoc = await getDoc(doc(db, "activeExam", "current"));
 
         if (!activeDoc.exists()) {
@@ -307,7 +306,6 @@
 
         const activeExamId = String(activeDoc.data().examId).trim();
 
-        // 🔥 STEP 2: Fetch ONLY that exam's questions
         const q = query(
             collection(db, "quizQuestions"),
             where("examId", "==", activeExamId)
@@ -341,7 +339,6 @@ function createNavBar() {
         const navBtn = document.createElement("button");
         navBtn.textContent = i + 1;
 
-        // ✅ USE THIS (NOT "btn")
         navBtn.classList.add("nav-button");
 
         navBtn.onclick = () => {
@@ -442,7 +439,6 @@ async function submitQuiz() {
     const studentName = document.getElementById("name").value.trim();
     const studentID = document.getElementById("id").value.trim();
 
-    // Recalculate score properly
     score = 0;
     for (let i = 0; i < questions.length; i++) {
         if (answers[i] === questions[i].correctAnswer) {
